@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child {
+                color: #757575;
+            }
+
+            .cars-datalist .car-item i,
+            .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                width: auto;
+                height: auto;
+            }
+
+            .cars-datalist .car-item .car-details {
+                padding-top: .5em;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Pais</ui:define>
+
+
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="pais.xhtml" />
+            <p:menuitem value="Pais" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <div class="ui-g">
+                <div class="ui-xl">
+                    <div class="card card-w-title">
+                        <div class="card-title">Conjunta</div>
+                        <p:dataTable var="modulo" value="#{conjuntaBean.modulos}" selectionMode="single">
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{modulo.codigo}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{modulo.nombre}" />
+                            </p:column>
+
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{modulo.estado}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:commandButton value="Funcionalidades" id="ajax" update="growl"
+                            action="#{buttonView.buttonAction}" style="margin-right:20px;"
+                            styleClass="ui-priority-primary" />
+                        <p:dataTable var="modulo" value="#{conjuntaBean.modulos}" selectionMode="single">
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{modulo.codigo}" />
+                            </p:column>
+                            <p:column headerText="Codigo modulo">
+                                <h:outputText value="#{modulo.codigo}" />
+                            </p:column>
+
+                            <p:column headerText="URL">
+                                <h:outputText value="#{modulo.nombre}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{modulo.estado}" />
+                            </p:column>
+                            <p:column headerText="Descripcion">
+                                <h:outputText value="#{modulo.codigo}" />
+                            </p:column>
+
+                        </p:dataTable>
+                        <h:form>
+                            <p:growl id="growl" life="2000" />
+
+                            <p:commandButton value="Ajax Submit" id="ajax" update="growl"
+                                action="#{buttonView.buttonAction}" style="margin-right:20px;"
+                                styleClass="ui-priority-primary" />
+
+                                <p:commandButton value="Ajax Submit" id="ajax" update="growl"
+                                action="#{buttonView.buttonAction}" style="margin-right:20px;"
+                                styleClass="ui-priority-primary" />
+                                <p:commandButton value="Ajax Submit" id="ajax" update="growl"
+                                action="#{buttonView.buttonAction}" style="margin-right:20px;"
+                                styleClass="ui-priority-primary" />
+
+                            
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

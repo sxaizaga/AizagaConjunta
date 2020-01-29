@@ -1,0 +1,179 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item i,
+            .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                width: auto;
+                height: auto;
+            }
+
+            .cars-datalist .car-item .car-details {
+                padding-top: .5em;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Pais</ui:define>
+
+
+    <ui:define name="content">
+
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="pais.xhtml" />
+            <p:menuitem value="Pais" url="#" />
+        </p:breadCrumb>
+
+        <h:form id="form">
+            <div class="ui-g">
+                <div class="ui-xl">
+                    <div class="card card-w-title">
+                        <div class="card-title">Paises</div> 
+                        <p:messages id="messages" />
+
+                        <h:panelGrid columns="4" cellpadding="5">
+                            <h:outputLabel for="txt2" value="Buscar por:" />
+                            <h:selectOneMenu id="txt2"  required="false" label="Text 2">
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Option 1" itemValue="1" />
+                                <f:selectItem itemLabel="Option 2" itemValue="2" />
+                                <f:selectItem itemLabel="Option 3" itemValue="3" />
+                            </h:selectOneMenu>
+                            <p:message for="@previous" />
+                            <h:outputText  />
+                            <h:outputLabel for="txt1" value="Termino de busqueda:" />
+                            <p:inputText id="txt1"  required="true" label="Termino de busqueda">
+                                <f:validateLength minimum="2" />
+                            </p:inputText> <p:commandButton update="@form" icon="ui-icon-search" />
+                            <p:message for="txt1" />
+                            <h:outputText  />
+                        </h:panelGrid>
+                        <p:menubar>
+                            <p:menuitem value="New" onclick="PF('dlg3').show();" icon="ui-icon-add" />
+                            <p:menuitem value="Edit" onclick="PF('dlg4').show();" icon="ui-icon-edit" />
+                        </p:menubar>
+                        <p:dialog header="Nuevo pais" widgetVar="dlg3" modal="true" >
+                            <div  class="card card-w-title">
+                                <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                        <label>Codigo del pais</label>
+                                    </h:panelGroup>
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                        <label>Nombre del pais</label>
+                                    </h:panelGroup>
+                                    <label>Por Omision</label>
+                                    <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="margin-bottom:10px;">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                        <f:selectItem itemLabel="Si" itemValue="S" />
+                                        <f:selectItem itemLabel="No" itemValue="N" />
+                                    </p:selectOneMenu>
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                        <label>Codigo telefonico</label>
+                                    </h:panelGroup>
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                        <label>Nacionalidad</label>
+                                    </h:panelGroup>      
+                                    <p:growl id="save" showDetail="true" />
+                                    <p:commandButton icon="ui-icon-save" action="#{dialogView.destroyWorld}" update="save">
+                                        <p:confirm header="Confirmar" message="Deseas crear un pais?" icon="ui-icon-info" />
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-cancel " />
+                                    </p:confirmDialog>
+
+                                    <p:growl id="cancel" showDetail="true" />
+                                    <p:commandButton  icon="ui-icon-cancel" action="#{dialogView.destroyWorld}" update="cancel">
+                                        <p:confirm header="Cancelar" message="Deseas cancelar?" icon="ui-icon-info" />
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-cancel" />
+                                    </p:confirmDialog>
+                                </p:panelGrid>
+                            </div>
+                        </p:dialog>  
+                        <p:dialog header="Editar Pais" widgetVar="dlg4" modal="true">
+                            <div  class="card card-w-title">
+                                <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                    <h:outputLabel for="name" value="Codigo del pais:" />
+                                    <h:panelGroup styleClass="md-inputfield" >
+                                        <p:inputText  />
+                                    </h:panelGroup>
+                                    <h:outputLabel for="name" value="Nombre del pais:" />
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                    </h:panelGroup>
+                                    <h:outputLabel for="name" value="Por Omision:" />
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                    </h:panelGroup>
+                                    <h:outputLabel for="name" value="Codigo telefonico:" />
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                    </h:panelGroup>
+                                    <h:outputLabel for="name" value="Nacionalidad:" />
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText />
+                                    </h:panelGroup>
+                                </p:panelGrid>
+                            </div>
+                        </p:dialog>  
+                        <p:dataTable var="car"  selectionMode="single" reflow="true" paginator="true" rows="10">
+                            <f:facet name="header">
+                                Lista de paises
+                            </f:facet>
+                            <p:column headerText="Codigo" >
+                                <h:outputText value="EC" />
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="">
+                                <h:outputText value="Ecuador" />
+                            </p:column>
+                            <p:column headerText="Por omision" sortBy="">
+                                <h:outputText value="S" />
+                            </p:column>
+                            <p:column headerText="Codigo telefonico" sortBy="">
+                                <h:outputText value="593" />
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
